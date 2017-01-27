@@ -1,0 +1,28 @@
+version: '2'
+services:
+    # works only from script docm_start_consul.sh
+    consul:
+        image: progrium/consul
+        restart: on-failure:10
+        container_name: consul
+        hostname: "${DOCKER_MACHINE_NAME}_consul"
+        ports:
+            - "${EXTERNAL_IP}:8300:8300"
+            - "${EXTERNAL_IP}:8301:8301"
+            - "${EXTERNAL_IP}:8301:8301/udp"
+            - "${EXTERNAL_IP}:8302:8302"
+            - "${EXTERNAL_IP}:8302:8302/udp"
+            - "${EXTERNAL_IP}:8400:8400"
+            - "${EXTERNAL_IP}:8500:8500"
+            - "172.17.0.1:53:53"
+            - "172.17.0.1:53:53/udp"
+        volumes:
+            - /home/docker_volumes/consul:/data
+        dns: 8.8.4.4
+        dns_search: avd.drweb.com
+        # bootstarp command to start first node
+        #command: -server -dc=dc1 -client=0.0.0.0 -advertise=${EXTERNAL_IP} -recursor=8.8.4.4 -bootstrap-expect 3
+        # main command to start other cluster nodes
+        command: ${CONSUL_MODE} -dc=dc1 -client=0.0.0.0 -advertise=${EXTERNAL_IP} -recursor=8.8.4.4 -ui-dir /ui -join=host1.example.com -join=host2.example.com -join=host3.example.com
+
+
