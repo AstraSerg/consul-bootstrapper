@@ -1,5 +1,6 @@
 # Consul bootstrapper
 Helps to bootstrap [Consul](https://www.consul.io/intro/) cluster with many client and server nodes without the need to care about multiple IP addresses.
+This project uses the docker image from [progrium](https://hub.docker.com/r/progrium/consul/)
 
 ---
 
@@ -9,7 +10,8 @@ Helps to bootstrap [Consul](https://www.consul.io/intro/) cluster with many clie
 1. [docker-engine](https://www.docker.com/) 
 2. [docker-compose](https://docs.docker.com/compose/)
 3. [docker-machine](https://docs.docker.com/machine/)
-4. At least 3 docker machines with the resolvable names. I will hostA.example.com, hostB.example.com, hostC.example.com in the example. A custom resolver IP may be set in docm_start_consul.sh
+4. At least 3 docker machines with the resolvable names. I will hostA.example.com, hostB.example.com, hostC.example.com in the example.
+A custom resolver IP may be set in docm_start_consul.sh so you will be able to use 172.17.0.1 as a system wide resolver (/etc/resolv.conf)
 
 ---
 
